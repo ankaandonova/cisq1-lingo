@@ -1,6 +1,9 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
 
+import nl.hu.cisq1.lingo.trainer.domain.exception.HintDoesNotMatchException;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,5 +52,20 @@ public class Feedback {
 
     public List<LetterFeedback> getLettersFeedback() {
         return this.letterFeedback;
+    }
+
+    public List<String> giveHint(@NotNull List<String> previousHint){
+        if(previousHint.size() != getLettersFeedback().size()){
+            throw new HintDoesNotMatchException();
+        }
+        String[] letters = attempt.split("");
+        List<String> hint = new ArrayList<>(previousHint);
+
+        for (int i = 0; i < getLettersFeedback().size(); i++){
+            if(getLettersFeedback().get(i) == CORRECT){
+                hint.set(i, letters[i]);
+            }
+        }
+        return hint;
     }
 }
