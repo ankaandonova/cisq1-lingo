@@ -2,7 +2,6 @@ package nl.hu.cisq1.lingo.trainer.domain;
 
 
 import nl.hu.cisq1.lingo.trainer.domain.exception.HintDoesNotMatchException;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,7 +53,7 @@ public class Feedback {
         return this.letterFeedback;
     }
 
-    public List<String> giveHint(@NotNull List<String> previousHint){
+    public List<String> giveHint(List<String> previousHint){
         if(previousHint.size() != getLettersFeedback().size()){
             throw new HintDoesNotMatchException();
         }
@@ -67,5 +66,9 @@ public class Feedback {
             }
         }
         return hint;
+    }
+
+    public boolean isWordGuessed() {
+        return this.letterFeedback.stream().allMatch(CORRECT::equals);
     }
 }
