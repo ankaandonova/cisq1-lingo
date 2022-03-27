@@ -7,11 +7,28 @@ import java.util.ArrayList;
 import nl.hu.cisq1.lingo.trainer.domain.exception.GameIsNotStarted;
 import nl.hu.cisq1.lingo.trainer.domain.exception.InvalidWordLength;
 
+import javax.persistence.*;
 
+@Entity
 public class Game {
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column
     private int score;
+
+    @OneToMany
     private final List<Round> rounds;
     private int wordToGuessLength;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Game() {
         this.score =0;

@@ -3,6 +3,7 @@ package nl.hu.cisq1.lingo.trainer.domain;
 
 import nl.hu.cisq1.lingo.trainer.domain.exception.HintDoesNotMatchException;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,14 +11,25 @@ import java.util.List;
 
 import static nl.hu.cisq1.lingo.trainer.domain.LetterFeedback.*;
 
+
+@Entity(name="feedback")
 public class Feedback {
-    private final String attempt;
-    private final List<LetterFeedback> letterFeedback;
 
+    @Id
+    @GeneratedValue
+    private Long id;
 
+    @Column
+    private String attempt;
+
+    @ElementCollection
+    private List<LetterFeedback> letterFeedback;
+
+    public Feedback() {}
     public Feedback(String attempt, List<LetterFeedback> letterFeedback) {
-        this.letterFeedback = letterFeedback;
+
         this.attempt = attempt;
+        this.letterFeedback = letterFeedback;
     }
 
     public static Feedback  wordIsGuessed(String wordToGuess, String attempt) {

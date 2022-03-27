@@ -1,12 +1,20 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
-
-
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Round {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @Column
     private final String wordToGuess;
+
+    @OneToMany
     private final List<Feedback> attempts;
 
 
