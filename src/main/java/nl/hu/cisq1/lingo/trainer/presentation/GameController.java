@@ -26,20 +26,14 @@ public class GameController {
 
     @PostMapping("/game")
     public Progress startGame() {
-        try{
-            return this.gameService.startNewGame();
-        }catch(Exception e){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+        return this.gameService.startNewGame();
+
     }
 
     @PostMapping("/game/{id}/round")
     public Progress startNewRound(@PathVariable Long id) {
-        try{
-            return this.gameService.startNewRound(id);
-        }catch(InvalideMove e){
-            throw  new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
-        }
+        return this.gameService.startNewRound(id);
+
 
     }
 
