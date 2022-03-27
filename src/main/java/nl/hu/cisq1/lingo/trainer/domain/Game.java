@@ -3,11 +3,10 @@ package nl.hu.cisq1.lingo.trainer.domain;
 import java.util.List;
 import java.util.ArrayList;
 
-
-import nl.hu.cisq1.lingo.trainer.domain.exception.GameIsNotStarted;
 import nl.hu.cisq1.lingo.trainer.domain.exception.InvalidWordLength;
-
 import javax.persistence.*;
+
+import static nl.hu.cisq1.lingo.trainer.domain.GameStatus.WAITING_FOR_ROUND;
 
 @Entity
 public class Game {
@@ -20,19 +19,27 @@ public class Game {
 
     @OneToMany
     private final List<Round> rounds;
+
+    @Enumerated(EnumType.STRING)
+    private GameStatus gameStatus = WAITING_FOR_ROUND;
+
     private int wordToGuessLength;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Game() {
         this.score =0;
         this.rounds = new ArrayList<>();
+    }
+
+    public Game( int score, List<Round> rounds, GameStatus gameStatus, int wordToGuessLength) {
+
+        this.score = score;
+        this.rounds = rounds;
+        this.gameStatus = gameStatus;
+        this.wordToGuessLength = wordToGuessLength;
+    }
+
+    public Round getRound(){
+        return this.rounds.get(this.rounds.size()-1);
     }
 
     public int getScore() {
@@ -40,7 +47,7 @@ public class Game {
     }
 
     public GameStatus GetGameStatus() {
-        return GameStatus.WAITING_FOR_ROUND;
+        return WAITING_FOR_ROUND;
     }
 
     public String startNewRound(String wordToGuess) throws InvalidWordLength{
@@ -50,29 +57,31 @@ public class Game {
 
         Round round = new Round(wordToGuess);
         rounds.add(round);
-        provideNextWordToGuess();
+        round.provideNextWordToGuess();
         return round.getHint();
     }
 
-    public void makeGuess(String guess) throws GameIsNotStarted {
+    public void makeGuess(String guess) {
         Round round = rounds.get(rounds.size() - 1);
         calculateScore();
         round.guess(guess);
     }
 
-    public void provideNextWordToGuess(){
-        int nextWordToGuess = rounds.get(rounds.size() - 1).getLengthWordToGuess();
-        if (nextWordToGuess == 7) {
-            this.wordToGuessLength = 5;
-        } else if (nextWordToGuess == 6) {
-            this.wordToGuessLength = 7;
-        } else {
-            this.wordToGuessLength = 6;
-        }
-    }
 
     public void calculateScore() {
         Round round = rounds.get(rounds.size() - 1);
         this.score = 5 * (5 - round.getAttemptsLength()) + 5;
     }
+
+    public Progress getProgress() {
+        Round currentRound = getRound();
+        return new Progress(
+                id,
+                gameStatus,
+                currentRound.getAttempts(),
+                score
+        );
+    }
+
+
 }

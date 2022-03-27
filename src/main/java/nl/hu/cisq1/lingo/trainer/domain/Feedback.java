@@ -1,8 +1,6 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
 
-import nl.hu.cisq1.lingo.trainer.domain.exception.HintDoesNotMatchException;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,12 +23,13 @@ public class Feedback {
     @ElementCollection
     private List<LetterFeedback> letterFeedback;
 
-    public Feedback() {}
     public Feedback(String attempt, List<LetterFeedback> letterFeedback) {
 
         this.attempt = attempt;
         this.letterFeedback = letterFeedback;
     }
+
+    public Feedback() {}
 
     public static Feedback  wordIsGuessed(String wordToGuess, String attempt) {
         if (wordToGuess.length() != attempt.length()) {
@@ -66,9 +65,6 @@ public class Feedback {
     }
 
     public List<String> giveHint(List<String> previousHint){
-        if(previousHint.size() != getLettersFeedback().size()){
-            throw new HintDoesNotMatchException();
-        }
         String[] letters = attempt.split("");
         List<String> hint = new ArrayList<>(previousHint);
 
