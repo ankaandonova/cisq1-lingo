@@ -156,7 +156,7 @@
             <artifactId>pitest-maven</artifactId>
             <version>1.6.2</version>
             <configuration>
-                <mutationThreshold>90</mutationThreshold>
+                <mutationThreshold>80</mutationThreshold>
                 <timestampedReports>false</timestampedReports>
             </configuration>
             <dependencies>
