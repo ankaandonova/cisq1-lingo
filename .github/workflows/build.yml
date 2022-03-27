@@ -30,9 +30,9 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven using Dspring CI Profile
-          run: mvn -B package --file pom.xml -Dspring.profiles.active=ci
+        run: mvn -B verify "-Dspring.profiles.active=ci"
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify -Dspring.profiles.active=ci org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ankaandonova_cisq1-lingo
+        run: mvn -B verify "-Dspring.profiles.active=ci" org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=ankaandonova_cisq1-lingo
