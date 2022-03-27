@@ -26,4 +26,6 @@ public class Progress {
     public int getScore() {
         return score;
     }
+
+    public Long getId() {return id;}
 }

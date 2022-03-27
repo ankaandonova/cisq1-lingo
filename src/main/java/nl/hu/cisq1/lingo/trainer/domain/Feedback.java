@@ -23,7 +23,6 @@ public class Feedback {
     @ElementCollection
     private List<LetterFeedback> letterFeedback;
 
-    public Feedback() {}
     public Feedback(String attempt, List<LetterFeedback> letterFeedback) {
 
         this.attempt = attempt;

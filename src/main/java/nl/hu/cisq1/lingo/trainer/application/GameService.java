@@ -27,11 +27,9 @@ public class GameService {
     }
 
     public Progress startNewRound(Long id){
-        Game game = this.springGameRepository.findById(id).orElseThrow();
+        Game game = this.springGameRepository.findById(id).orElseThrow();;
 
-        int nextLength = game.getRound().getAttemptsLength();
-        String wordToGuess = this.wordService.provideRandomWord(nextLength);
-        game.startNewRound(wordToGuess);
+        game.startNewRound(this.wordService.provideRandomWord(6));
 
         this.springGameRepository.save(game);
         return game.getProgress();

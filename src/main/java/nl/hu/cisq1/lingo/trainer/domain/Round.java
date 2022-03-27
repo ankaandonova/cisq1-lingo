@@ -23,8 +23,6 @@ public class Round {
         this.attempts = new ArrayList<>();
     }
 
-    public Round() {}
-
     public List<Feedback> getAttempts() { return attempts; }
     public int getAttemptsLength(){ return this.attempts.size();}
 
@@ -34,16 +32,14 @@ public class Round {
     }
 
     public int provideNextWordToGuess(){
-        int nextWordToGuess = this.wordToGuess.length();
-        if (nextWordToGuess == 7) {
+        if (this.wordToGuess.length() == 7) {
             return 5;
-        } else if (nextWordToGuess == 6) {
+        } else if (this.wordToGuess.length() == 6) {
            return 7;
         } else {
             return 6;
         }
     }
-
 
     public GameStatus guess(String guess) {
         Feedback feedback = Feedback.wordIsGuessed(this.wordToGuess, guess);

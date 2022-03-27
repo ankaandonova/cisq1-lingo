@@ -13,8 +13,8 @@ class ProgressTest {
     @Test
     @DisplayName("Get progress")
     void GameProgress() {
-        String wordToGuess = "baard";
-        String attempt = "board";
+        String wordToGuess = "BAARD";
+        String attempt = "BOARD";
         Round round = new Round(wordToGuess);
         List<Round> rounds = new ArrayList<>();
         rounds.add(round);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 import nl.hu.cisq1.lingo.trainer.domain.exception.InvalidWordLength;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 
