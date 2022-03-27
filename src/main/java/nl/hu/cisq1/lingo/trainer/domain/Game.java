@@ -3,10 +3,7 @@ package nl.hu.cisq1.lingo.trainer.domain;
 import java.util.List;
 import java.util.ArrayList;
 
-
 import nl.hu.cisq1.lingo.trainer.domain.exception.InvalidWordLength;
-import org.jetbrains.annotations.NotNull;
-
 import javax.persistence.*;
 
 import static nl.hu.cisq1.lingo.trainer.domain.GameStatus.WAITING_FOR_ROUND;
@@ -44,6 +41,7 @@ public class Game {
     public Round getRound(){
         return this.rounds.get(this.rounds.size()-1);
     }
+
     public int getScore() {
         return score;
     }

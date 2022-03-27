@@ -29,6 +29,8 @@ public class Feedback {
         this.letterFeedback = letterFeedback;
     }
 
+    public Feedback() {}
+
     public static Feedback  wordIsGuessed(String wordToGuess, String attempt) {
         if (wordToGuess.length() != attempt.length()) {
             return new Feedback(attempt, Collections.nCopies(wordToGuess.length(), INVALID));

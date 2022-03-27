@@ -4,7 +4,9 @@ import nl.hu.cisq1.lingo.trainer.data.SpringGameRepository;
 import nl.hu.cisq1.lingo.trainer.domain.Game;
 import nl.hu.cisq1.lingo.trainer.domain.Progress;
 import nl.hu.cisq1.lingo.words.application.WordService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GameService {
     private WordService wordService;
     private SpringGameRepository springGameRepository;

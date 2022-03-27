@@ -23,6 +23,8 @@ public class Round {
         this.attempts = new ArrayList<>();
     }
 
+    public Round() {}
+
     public List<Feedback> getAttempts() { return attempts; }
     public int getAttemptsLength(){ return this.attempts.size();}
 
