@@ -1,8 +1,6 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
 
-import nl.hu.cisq1.lingo.trainer.domain.exception.HintDoesNotMatchException;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,9 +64,6 @@ public class Feedback {
     }
 
     public List<String> giveHint(List<String> previousHint){
-        if(previousHint.size() != getLettersFeedback().size()){
-            throw new HintDoesNotMatchException();
-        }
         String[] letters = attempt.split("");
         List<String> hint = new ArrayList<>(previousHint);
 

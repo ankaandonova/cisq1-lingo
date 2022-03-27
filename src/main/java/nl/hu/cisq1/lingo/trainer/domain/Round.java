@@ -12,10 +12,10 @@ public class Round {
     private Long id;
 
     @Column
-    private final String wordToGuess;
+    private String wordToGuess;
 
     @OneToMany
-    private final List<Feedback> attempts;
+    private List<Feedback> attempts;
 
 
     public Round(String wordToGuess) {
@@ -23,18 +23,27 @@ public class Round {
         this.attempts = new ArrayList<>();
     }
 
-    public int getLengthWordToGuess() {
-        return this.wordToGuess.length();
-    }
+    public Round() {}
 
-    public int getAttemptsLength(){
-        return this.attempts.size();
-    }
+    public List<Feedback> getAttempts() { return attempts; }
+    public int getAttemptsLength(){ return this.attempts.size();}
 
     public String getHint() {
         String[] lettersToGuess = wordToGuess.split("");
         return lettersToGuess[0] + ".".repeat(lettersToGuess.length - 1);
     }
+
+    public int provideNextWordToGuess(){
+        int nextWordToGuess = this.wordToGuess.length();
+        if (nextWordToGuess == 7) {
+            return 5;
+        } else if (nextWordToGuess == 6) {
+           return 7;
+        } else {
+            return 6;
+        }
+    }
+
 
     public GameStatus guess(String guess) {
         Feedback feedback = Feedback.wordIsGuessed(this.wordToGuess, guess);

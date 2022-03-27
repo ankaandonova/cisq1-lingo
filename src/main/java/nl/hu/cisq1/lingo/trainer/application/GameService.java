@@ -2,6 +2,7 @@ package nl.hu.cisq1.lingo.trainer.application;
 
 import nl.hu.cisq1.lingo.trainer.data.SpringGameRepository;
 import nl.hu.cisq1.lingo.trainer.domain.Game;
+import nl.hu.cisq1.lingo.trainer.domain.Progress;
 import nl.hu.cisq1.lingo.words.application.WordService;
 
 public class GameService {
@@ -13,5 +14,26 @@ public class GameService {
     public GameService(WordService wordService, SpringGameRepository springGameRepository){
         this.wordService = wordService;
         this.springGameRepository = springGameRepository;
+    }
+
+    public Progress startNewGame(){
+        String wordToGuess = this.wordService.provideRandomWord(5);
+        Game game = new Game();
+        game.startNewRound(wordToGuess);
+
+        this.springGameRepository.save(game);
+        return game.getProgress();
+
+    }
+
+    public Progress startNewRound(Long id){
+        Game game = this.springGameRepository.findById(id).orElseThrow();
+
+        int nextLength = game.getRound().getAttemptsLength();
+        String wordToGuess = this.wordService.provideRandomWord(nextLength);
+        game.startNewRound(wordToGuess);
+
+        this.springGameRepository.save(game);
+        return game.getProgress();
     }
 }

@@ -28,4 +28,34 @@ class RoundTest {
         round.guess("bedde");
         assertEquals(GameStatus.ELIMINATED, round.guess("board"));
     }
+
+    @Test
+    @DisplayName("Next word to guess is five letters word")
+    void FiveLettersWord() {
+        String wordToGuess = "baardje";
+        Round round = new Round(wordToGuess);
+        int actual = round.provideNextWordToGuess();
+        int expected = 5;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Next word to guess is six letters word")
+    void SixLettersWord() {
+        String wordToGuess = "baard";
+        Round round = new Round(wordToGuess);
+        int actual = round.provideNextWordToGuess();
+        int expected = 6;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Next word to guess is seven letters word")
+    void SevenLettersWord() {
+        String wordToGuess = "borden";
+        Round round = new Round(wordToGuess);
+        int actual = round.provideNextWordToGuess();
+        int expected = 7;
+        assertEquals(expected, actual);
+    }
 }
